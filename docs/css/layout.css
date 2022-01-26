@@ -1,0 +1,189 @@
+/* Site: SITE NAME */
+/* Site URL: http://www1.georgetown.edu/ROOTFOLDER/ */
+/* Name: Site Layout Stylesheet */
+/* Developed by KeyBridge http://keybridge.georgetown.edu */
+/* Based on Version 1.1.2 */
+/* Date: Spring 2007 */
+/* -------------------------------------------- */
+
+/* TOC */
+/* 1. Site Layout Settings */
+/* 2. Site Margin Styles */
+/* -------------------------------------------- */
+
+
+/* 1. Site Layout Settings */
+/* -------------------------------------------- */
+
+/* Dual Nav/Vertical Nav Layout */
+/* -------------------------------------------- */
+/* suitable for layouts w/vertical nav */
+
+/* IF using 960 wdith, this overrides container width in global.css.
+Also, edit col widths below and site_specific.css .globalnav and #footer widths. */
+/* #container { width: 960px; } */
+
+.col-SMX #content { width: 600px; }
+.col-SMX #maincontent { width: 420px; }
+.col-SMX #extracontent { width: 180px; }
+.col-SMX #vertnav { width: 180px; }
+/* content = maincontent + extracontent
+content + vertnav = 960px */
+
+.col-SM #maincontent { width: 600px; }
+.col-SM #vertnav { width: 180px; }
+/* content = maincontent
+content + vertnav = 960px */
+
+/* Horizontal Nav Layout */
+/* -------------------------------------------- */
+/* suitable for layouts w/o a vertical nav */
+
+.col-MX #maincontent { width: 600px; }
+.col-MX #extracontent { width: 180px; }
+/* content = maincontent + extracontent = 960px */
+
+.col-M #maincontent { width: 780px; }
+/* content = maincontent = 960px */
+
+/* 2. Site Margin Styles */
+/* -------------------------------------------- */
+/* Consolidate all "global" and "common" margin styles
+within this section, not in site_specific.css */
+
+/* Container Margins */
+/* -------------------------------------------- */
+/* vertical margin at top and bottom of site */
+
+#container
+{
+margin-top: 10px;
+}
+/* margin-bottom is set in style_v3.css body property
+Note: avoid setting margin-right and margin-left, will override defaults */
+
+/* Default Styles Left/Right Margins */
+/* -------------------------------------------- */
+/* Site-wide default margin-left and margin-right styles
+for standard CSS style classes (headers, paragraphs, lists) */
+
+/*
+h1, h2, h3, h4, h5, h6, p, ul, ol, dl, table
+{
+margin-left: 10px;
+margin-right: 10px;
+}
+*/
+/* override margin settings for specific uses by
+specifying the container and the style tag name
+i.e. #containtername .classname style1 { margin-left: 0; }
+Note: when working with standard CSS style classes, avoid setting a margin-top!!!
+Specificy only margin-bottom for any standard CSS style class.
+*/
+
+/* Content Margins */
+/* -------------------------------------------- */
+/* All Web pages have default 0 margins
+The style definitions in this section provide
+a 10px right, left and bottom margin to Web pages in the the "maincontent" and "extracontent" containers */
+
+#content { margin-top: 0; }
+/* Adds top vertical spacing between page content area and the header.
+#vertnav margin-top = #content margin-top
+#footerwrap margin-top = #content margin-top - adds spacing between footer and content/vertnav */
+
+#content h1, #content h2, #content h3,
+#content h4, #content h5, #content h6,
+#content p, #content ul, #content ol, #content dl, #content table
+{
+margin-bottom: 10px; 
+}
+/* Default margin settings for site are set at the top of the style sheet. Default margin-left and margin-right for
+standard CSS style classes are set above
+Standard CSS style classes for margin-bottom in the content container
+(maincontent and extracontent) are defined here -- if they differ from the default margin settings. */
+
+#content blockquote { margin-left: 15px; }
+
+/* Content List Margins */
+/* -------------------------------------------- */
+
+#content ul, #content ol, #content dl { margin-left: 30px; }
+/* for all list types (bulleted, numbered and definition)
+margin-left = left margin default px width (i.e. 10px) + 30px left indent */
+#content ul ul, #content ol ol, #content dl dl,
+#content ul ol, #content ol ul
+{
+margin-left: 15px;
+margin-bottom: 0;
+}
+/* for all sub-list, sub-sub-lists (bulleted, numbered and definition)
+margin-left, margin-bottom set here
+margin-bottom: 0 required in certain circumstances to prevent odd spacing */
+
+#content li { margin: 5px 0; }
+#content ul li { list-style: outside square; }
+#content ol ul li { list-style: outside square; }
+/* Add bullets back into unordered lists
+ol ul must be specified as unordered list, otherwise inherits ordered list style */
+#content ol li { list-style: outside decimal; }
+#content ul ol li { list-style: outside decimal; }
+/* Add numbers back into ordered lists
+ul ol must be specified as ordered list, otherwise inherits unordered list style */
+#content dl dd { margin-left: 20px; }
+/* Add left indent to definition list definitions
+Note: the FCK Editor does not include a button to create definition lists
+Users can manually code these lists into the source HTML code */
+
+/* Content Table Margins */
+/* -------------------------------------------- */
+
+#content table
+{
+padding: 0;
+/*border-spacing: 1px;*/
+}
+
+#content td { padding: 3px 5px; }
+
+#content table p { margin: 0 0 5px 0; }
+/* provides paragraphs within table cells a 5px bottom margin;
+the left/right margins are set in #content table td. */
+
+/* Extra Content Margins */
+/* -------------------------------------------- */
+#extracontent h3, #extracontent h4, #extracontent h5, #extracontent h6 { margin-bottom: 0; }
+/* ChannelBox headers don't need a margin-bottom */
+
+/* Vertical Navigation Margins */
+/* -------------------------------------------- */
+
+#vertnav { margin: 0; }
+/* margin-top and margin-bottom in vertical nav should equal to margin-top and margin-bottom in content container */
+#vertnav ul { margin: 0; padding: 0 0 4px 0; }
+#vertnav ul ul { padding: 0 0 4px 0; }
+/* background-color effect requires padding instead of margin */
+#vertnav li { margin: 0 ; padding: 4px 10px; }
+/* provides a uniform top and bottom padding between all sections */
+#vertnav li li { padding: 4px 0 0 6px; }
+/* provides reduced left padding, and a uniform top and bottom padding between all child sections without increasing the bottom padding */
+
+/* Horizontal Navigation Margins */
+/* -------------------------------------------- */
+
+#horznav ul { margin: 0; }
+/* No margins in horizontal nav */
+
+/* Breadcrumbs Margins */
+/* -------------------------------------------- */
+
+#content .breadcrumbs ul { margin-left: 0; }
+#content .breadcrumbs ul li { margin-right: 0; }
+/* Resets Breadcrumbs list within Content back to default margin setting, see ul,  ul li settings in Content */
+
+/* Footer Margins */
+/* -------------------------------------------- */
+
+#footerwrap { margin-top: 0; }
+/* #footerwrap margin-top = #content margin-top */
+
