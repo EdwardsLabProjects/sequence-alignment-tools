@@ -25,14 +25,20 @@ See the binary releases in this repository.
 
   1. Normalize the genome sequence database using compress_seq
 
-     `% compress_seq -i genome.fasta -n true`
+     ```
+     % compress_seq -i genome.fasta -n true
+     ```
 
   2. Count primer occurrences in the genome that match with at most one string edit, but in which the 5' most 7 bases must match exactly
 
-     `% primer_match -i genome.fasta -P primers.txt -r -k 1 -5 7 -c -a` 
+     ```
+     % primer_match -i genome.fasta -P primers.txt -r -k 1 -5 7 -c -a
+     ```
 
 * Find all occurrences of PCR primer pairs matching exactly, oriented towards each other, with maximum amplicon length 1000, and extract the amplicons in fasta format.
 
-     `% compress_seq -i genome.fasta -n true`
-     `% pcr_match -i genome.fasta -P primers.txt -M 1000 -A ">%i /len=%l /Ns=%N /edits=(%>e,%<e)\n%@\n"`
+     ```
+     % compress_seq -i genome.fasta -n true
+     % pcr_match -i genome.fasta -P primers.txt -M 1000 -A ">%i /len=%l /Ns=%N /edits=(%>e,%<e)\n%@\n"
+     ```
 
