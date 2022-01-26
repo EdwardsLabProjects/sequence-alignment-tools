@@ -11,13 +11,13 @@ See the binary releases in this repository.
 ## Programs
 
 ### primer_match
-[primer_match](primer_match.md) finds and counts exact and near exact instances of short DNA sequences, usually primers, in a (much) larger DNA sequence database such as the human genome. 
+[primer_match](primer_match.html) finds and counts exact and near exact instances of short DNA sequences, usually primers, in a (much) larger DNA sequence database such as the human genome. 
 
 ### pcr_match
-pcr_match finds pairs of short DNA sequences, usually primers, in a (much) larger DNA sequence database such as the human genome. 
+[pcr_match](pcr_match.html) finds pairs of short DNA sequences, usually primers, in a (much) larger DNA sequence database such as the human genome. 
 
 ### compress_seq
-compress_seq reformats multi-FASTA sequence databases for efficient searching by primer_match and pcr_match. 
+[compress_seq](compress_seq.html) reformats multi-FASTA sequence databases for efficient searching by primer_match and pcr_match. 
 
 ## Examples
 
