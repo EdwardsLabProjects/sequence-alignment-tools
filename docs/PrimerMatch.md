@@ -1,5 +1,3 @@
-## Introduction
-
 The Primer Match suite of tools is designed to find and count exact and near exact matches of short oligonucleotide sequences in large genomic databases. All matches to the oligos will be output, the tools guarantee a complete enumeration of all matches consistent with the search options. Substitutions, insertions and deletions can be prohibited in the start, end, 5' or 3' bases of oligos. Many options for constraining acceptable alignments and input/output formats are provided. The tools automatically optimize the sequence search strategies to match the search parameters.
 
 ## Installation
