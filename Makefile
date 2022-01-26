@@ -45,7 +45,7 @@ endif
 
 # PLATFORM=aix-gpp
 # PLATFORM=aix-xlc
-PLATFORM=linux-gpp
+# PLATFORM=linux-gpp
 # PLATFORM=linux-icc
 # PLATFORM=alpha-cxx
 # PLATFORM=alpha-gpp
