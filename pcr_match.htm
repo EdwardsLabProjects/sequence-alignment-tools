@@ -1,0 +1,573 @@
+<html>
+      <p align="center"><font face="Arial" size="+2">pcr_match</font></p>
+
+<h3>Name</h3>
+<blockquote>
+<p><b>pcr_match</b> - Find primer pairs in a DNA
+sequence database</p>
+</blockquote>
+<h3>Synopsis</h3>
+<blockquote>
+<p><b>pcr_match</b> [
+<i> options</i> ]</p>
+</blockquote>
+<h3>Description</h3>
+<blockquote>
+<p><b>pcr_match</b> finds pairs of short
+DNA sequences, usually primers, in a (much) larger DNA sequence database such as the human genome.&nbsp;</p>
+<p>By default, <b> pcr_match</b> outputs a human readable
+alignment for each occurance of a primer in the sequence database. The format of the alignments  is completely configurable with the
+<u> -A</u> options.</p>
+<p><b>pcr_match </b>runs fastest when the sequence database has been
+pre-processed with <b>compress_seq</b>, but this is not necessary. If the
+sequence database has not been pre-processed with <b>compress_seq</b>, the
+sequence database <u>must</u> be in a regular FASTA format. Each line, except
+for the last, of every sequence entry must hold the same number of sequence
+characters. If the sequence database is not in a regular FASTA format, the
+results may be incorrect. <b>pcr_match</b> will warn the user if the FASTA
+format is not in a regular format.&nbsp;</p>
+</blockquote>
+<h3>Options</h3>
+<blockquote>
+<p>-i <i>FASTA_sequence_database</i></p>
+  <blockquote>
+<p>Name of the sequence database to search. Required.</p>
+  </blockquote>
+<p>-p <i> primers</i></p>
+  <blockquote>
+<p>White space (space, tab, new line) separated list of primer sequences to find in the sequence database. When this
+opition is used on the command line, the primers will usually need to be placed in quotes (&quot;). 
+The primer pairs must be consecutive in the list of primers. One of
+<u>-p</u>, <u>-P</u>, <u>-F, </u>or <u>-S</u> must be supplied.</p>
+  </blockquote>
+<p>-P <i>primer_file</i></p>
+  <blockquote>
+<p>File containing a white space (space, tab, new line) separated list of primer 
+sequences to find in the sequence database. The primer pairs must be consecutive 
+in the list of primers. One of
+<u>-p</u>, <u>-P</u>, <u>-F, </u>or <u>-S</u> must be supplied.</p>
+  </blockquote>
+<p>-F <i>fasta_primer_file</i></p>
+  <blockquote>
+<p>FASTA file containing a list of primer sequences to find in the sequence 
+database. The primer pairs must be consecutive in the list of primers. One of
+<u>-p</u>, <u>-P</u>, <u>-F, </u>or <u>-S</u> must be supplied.</p>
+  </blockquote>
+<p>-S <i>sts-format-file</i></p>
+  <blockquote>
+<p>UniSTS format file containing a list of primer pairs to find in the sequence 
+database. One of
+<u>-p</u>, <u>-P</u>, <u>-F, </u>or <u>-S</u> must be supplied.</p>
+  </blockquote>
+<p>-o <i> output_file</i></p>
+  <blockquote>
+<p>Output is redirected into the file <i>output_file</i>. If absent, output goes to standard out.</p>
+  </blockquote>
+<p>-k <i> edit_distance</i></p>
+  <blockquote>
+<p>The maximum number of insertions, deletions, and substitutions permitted in any primer alignment. If absent, edit distance 0 is assumed.&nbsp;</p>
+  </blockquote>
+<p>-K <i>mismatches</i></p>
+  <blockquote>
+<p>The maximum number of mismatches permitted in any primer alignment. </p>
+  </blockquote>
+<p>-r&nbsp;</p>
+  <blockquote>
+<p> Reverse complement the reverse complement (second) primer. This option is 
+automatically set, for UniSTS format primer pairs. Default: false.</p>
+  </blockquote>
+<p>-a</p>
+  <blockquote>
+<p> Output all primer pair orientations. Default: false.</p>
+  </blockquote>
+<p>-<i>x l&nbsp;</i></p>
+  <blockquote>
+    <p>Length of exact seed or word size, ala blast, required by any primer 
+    alignment. Can be combined with other options.</p>
+  </blockquote>
+<p>-s (<i> l | ~l </i>)<i>&nbsp;</i></p>
+  <blockquote>
+    <p> Constrain the first<i> l </i>primer characters to match exactly; any insertions, deletions or substitutions must occur after position<i>
+    l</i>. The reverse complement of a primer must also have its first <i> l </i> characters
+    match exactly. Note that a wildcard match is considered an exact match. With
+    the ~ modifier, the first <i>l</i> primer characters are constrained to
+    match inexactly, the remaining characters must match exactly.&nbsp;</p>
+  </blockquote>
+<p>-e (<i> l | ~l </i>)<i>&nbsp;</i></p>
+  <blockquote>
+    <p> Constrain the last <i> l </i>primer characters to match exactly; any insertions, deletions or substitutions must occur before position<i>
+    l</i>. The reverse complement of a primer must also have its last<i> l</i> characters
+    match exactly. Note that a wildcard match is considered an exact
+    match.&nbsp; With the ~ modifier, the last <i>l</i> primer characters are
+    constrained to match inexactly, the remaining characters must match exactly.</p>
+  </blockquote>
+<p>-5<i>  </i>(<i> l | ~l </i>)</p>
+  <blockquote>
+<p> Constrain the<i> l </i>primer characters at the 5' end of the primer to match
+exactly; any insertions, deletions or substitutions must occur after position<i> l
+</i> from the 5' end of the primer. The reverse complement of a primer must also
+have the<i> l </i>characters at its 5' end match exactly. Note that a wildcard
+match is considered an exact match. With the ~ modifier, the <i>l</i> primer
+characters at the 5' end of the primer are constrained to match inexactly, the
+remaining characters must match exactly.&nbsp;</p>
+  </blockquote>
+<p>-3<i>  </i>(<i> l | ~l </i>)&nbsp;</p>
+  <blockquote>
+<p> Constrain the<i> l </i>primer characters at the 3' end of a primer to match
+exactly; any insertions, deletions or substitutions must occur after position<i> l
+</i> from the 3' end of the primer. The reverse complement of a primer must also have the<i> l
+</i> characters at its 3' end match exactly. Note that a wildcard match is
+considered an exact match. With the ~ modifier, the <i>l</i> primer characters
+at the 3' end of the primer are constrained to match inexactly, the remaining
+characters must match exactly.&nbsp;</p>
+  </blockquote>
+<p>-w&nbsp;</p>
+  <blockquote>
+<p> Respect IUPAC ambiguity codes as wildcards, in both the sequence database <i>and</i>
+the primers. A symbol from the sequence database is considered a wildcard match
+to a primer symbol if either set of represented DNA symbols contains the other.
+The only exception is that a N in the sequence database does not match any
+primer symbol. Note: this is almost certainly what you want, as long stretches
+of Ns are often used to indicate gaps in assembled sequence.&nbsp;</p>
+  </blockquote>
+<p>-W&nbsp;</p>
+  <blockquote>
+<p>Respect IUPAC ambiguity codes as wildcards, in both the sequence database <i>and</i>
+the primers. A symbol from the sequence database is considered a wildcard match
+to a primer symbol if either set of represented DNA symbols contains the other.
+Also respects Ns in the sequence databases.&nbsp;&nbsp;</p>
+  </blockquote>
+<p>-u&nbsp;</p>
+  <blockquote>
+<p>Force all primers to uppercase characters.</p>
+  </blockquote>
+<p>-m <i> min-length</i></p>
+  <blockquote>
+<p>Minimum length, in bases, of the amplicon product of the primer pairs. 
+Default: 0.</p>
+  </blockquote>
+<p>-M <i> max-length</i></p>
+  <blockquote>
+<p>Maximum length, in bases, of the amplicon product of the primer pairs. 
+Default: 2000.</p>
+  </blockquote>
+<p>-d <i>deviation</i></p>
+  <blockquote>
+<p>Maximum deviation of the length, in bases, of the amplicon product of the 
+primer pairs from the length specified in the UniSTS format primer file. UniSTS 
+format primers required. Default: no constraint. </p>
+  </blockquote>
+<p>-b </p>
+  <blockquote>
+<p>Measure the length of amplicon as number of bases <i>between</i> primers.</p>
+  </blockquote>
+<p>-A <i> format</i></p>
+  <blockquote>
+<p>Output format for primer alignments. See <b> Output Format</b> below. If present, alignments will be output.</p>
+  </blockquote>
+<p>-R <i> report_interval</i></p>
+  <blockquote>
+<p>Usually, <b> primer_match</b> accumulates many matches before taking the time
+to output alignments. This reduces the running time tremendously. However, if you are debugging or want reassurance that
+<b> primer_match</b> is actually doing something, setting <i> report_interval</i>
+to 1 will force <b>primer_match</b> to report alignments as they are found.</p>
+  </blockquote>
+<p>-E <i> eos</i></p>
+  <blockquote>
+<p>Consider the sequence character with ascii code <i> eos</i> to represent the
+end of the sequence in a FASTA entry. This character can never be part of an alignment, except if explicitly included in a primer sequence.
+By default, 12 (new line) is considered the end of sequence character. The end of sequence character is inserted by
+<b> compress_seq</b>.</p>
+  </blockquote>
+<p>-D ( <i>0</i> | <i>1</i> | <i>2</i> | <i>3</i> | <i>4</i> )&nbsp;</p>
+  <blockquote>
+<p>Select the sequence database pre-processing strategy. The default, 0, will
+choose the fastest strategy, based on the pre-processing done, or not done, by <b>compress_seq</b>.</p>
+<ol>
+  <li>Sequence database has not been pre-processed.</li>
+  <li>Sequence database has been indexed by <b>compress_seq</b>. This is the
+    default behavior of <b>compress_seq</b>.</li>
+  <li>Sequence database has been indexed and normalized by <b>compress_seq</b>,
+    using the option <u>-n true</u>.</li>
+  <li>Sequence database has been indexed, normalized and compressed by <b>compress_seq</b>,
+    using the option <u>-z true</u>.</li>
+</ol>
+<p>Given the availability of pre-processed sequence database files, option 3 is
+selected first, then option 4, then option 2, then option 1. This will typically
+represent the fastest possible run time.&nbsp;</p>
+  </blockquote>
+<p>-B</p>
+<blockquote>
+  <p>Use buffered standard I/O rather than mmap to stream through the sequence
+  database. On some platforms, where the use of mmap is somewhat unpredictable,
+  this option may make it possible to run <b>primer_match</b> reliably.&nbsp;</p>
+</blockquote>
+<p>-v&nbsp;</p>
+<blockquote>
+  <p>Verbose (version &amp; diagnostic) output.</p>
+</blockquote>
+<p>-h&nbsp;</p>
+  <blockquote>
+<p> Command-line help.</p>
+  </blockquote>
+</blockquote>
+<h3>Output Format</h3>
+<blockquote>
+<p>The an example of the default alignment output format </p>
+  <pre><font face="Courier New" size="2">&gt;gi|21700565|gb|AC092408.3| Papio anubis clone RP41-446H8, complete sequence
+CTTGTAATCCCAGAACTTTGG 57681 ... 1714 ... 59395 CCCCGTCTCTACTAAAAATA
+||^||||||||||*|||||||                          |||||||||||||*||||||
+CT-GTAATCCCAGGACTTTGG F                      R CCCCGTCTCTACTTAAAATA D11S3114 REVERSE-STRAND</font></pre>
+<p>The command line option <u> -A</u> give the user explicit control over the
+output of alignments  respectively. Each format string contains conversion characters, which specify pieces of the alignment or count
+output.</p>
+<p>Alignment format conversion characters:</p>
+</blockquote>
+<div align="center">
+  <center>
+  <table border="0" width="100%" height="1191">
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%h&nbsp;</td>
+      <td width="89%" valign="top" align="left" height="19">FASTA header (defline) of the sequence entry containing the alignment.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="38"></td>
+      <td width="8%" valign="top" align="left" height="38">%H</td>
+      <td width="89%" valign="top" align="left" height="38"> First &quot;word&quot; of the FASTA
+        header (defline) of the sequence entry containing the alignment. The first word is everything up to (but not
+        including) the first whitespace character of the defline.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%f</td>
+      <td width="89%" valign="top" align="left" height="19"> Index of the FASTA entry containing
+        the alignment.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&gt;s</td>
+      <td width="89%" valign="top" align="left" height="19"> Start position of the 
+      &quot;left&quot; primer alignment
+        within the FASTA entry (space based).</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&lt;s</td>
+      <td width="89%" valign="top" align="left" height="19"> Start position of the 
+      &quot;right&quot; primer alignment
+        within the FASTA entry (space based).</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&gt;e</td>
+      <td width="89%" valign="top" align="left" height="19"> End position of the 
+      &quot;left&quot; primer alignment in the FASTA entry (space based).</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&lt;e</td>
+      <td width="89%" valign="top" align="left" height="19"> End position of the 
+      &quot;right&quot; primer alignment in the FASTA entry (space based).</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&gt;l</td>
+      <td width="89%" valign="top" align="left" height="19"> Length of the 
+      &quot;left&quot; primer alignment.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&lt;l</td>
+      <td width="89%" valign="top" align="left" height="19"> Length of the 
+      &quot;right&quot; primer alignment.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%l</td>
+      <td width="89%" valign="top" align="left" height="19"> Length of the 
+      amplicon.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&gt;5</td>
+      <td width="89%" valign="top" align="left" height="19"> Position of the 5' end of the 
+      &quot;left&quot; primer alignment in the sequence entry (space
+        based).</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&lt;5</td>
+      <td width="89%" valign="top" align="left" height="19"> Position of the 5' end of the 
+      &quot;right&quot; primer alignment in the sequence entry (space
+        based).</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&gt;3</td>
+      <td width="89%" valign="top" align="left" height="19"> Position of the 3' end of the 
+      &quot;left&quot; primer alignment in the sequence entry (space
+        based).</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&lt;3</td>
+      <td width="89%" valign="top" align="left" height="19"> Position of the 3' end of the 
+      &quot;right&quot; primer alignment in the sequence entry (space
+        based).</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&gt;S</td>
+      <td width="89%" valign="top" align="left" height="19"> Start position (absolute) of the 
+      &quot;left&quot; primer alignment in the sequence database.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&lt;S</td>
+      <td width="89%" valign="top" align="left" height="19"> Start position (absolute) of the 
+      &quot;right&quot; primer alignment in the sequence database.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&gt;E&nbsp;</td>
+      <td width="89%" valign="top" align="left" height="19"> End position (absolute) of the 
+      &quot;left&quot; primer alignment in the sequence database.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&lt;E&nbsp;</td>
+      <td width="89%" valign="top" align="left" height="19"> End position (absolute) of the 
+      &quot;right&quot; primer alignment in the sequence database.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%i</td>
+      <td width="89%" valign="top" align="left" height="19"> Index of the aligned primer 
+      pair.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&gt;d</td>
+      <td width="89%" valign="top" align="left" height="19">Edit distance (number of insertions, deletions, substitutions) of the
+        &quot;left&quot; primer alignment.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&lt;d</td>
+      <td width="89%" valign="top" align="left" height="19">Edit distance (number of insertions, deletions, substitutions) of the
+        &quot;right&quot; primer alignment.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&gt;p</td>
+      <td width="89%" valign="top" align="left" height="19"> The (forward) sequence of the 
+      &quot;left&quot; primer, whether it was found in its
+        forward or reverse complement form.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&lt;p</td>
+      <td width="89%" valign="top" align="left" height="19"> The (forward) sequence of the 
+      &quot;right&quot; primer, whether it was found in its
+        forward or reverse complement form.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&gt;P</td>
+      <td width="89%" valign="top" align="left" height="19"> The FASTA header (defline) of
+        the &quot;left&quot; primer, if the primers came from a FASTA format file. Otherwise,
+        &quot;&quot;.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&lt;P</td>
+      <td width="89%" valign="top" align="left" height="19"> The FASTA header (defline) of
+        the &quot;right&quot; primer, if the primers came from a FASTA format file. Otherwise,
+        &quot;&quot;.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%I</td>
+      <td width="89%" valign="top" align="left" height="19"> The STS identifier 
+      of the primer pair, if the primers came from a UniSTS format file. Otherwise,
+        &quot;&quot;.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%L</td>
+      <td width="89%" valign="top" align="left" height="19"> The STS length of 
+      the primer pair, if the primers came from a UniSTS format file. Otherwise,
+        &quot;&quot;.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%D</td>
+      <td width="89%" valign="top" align="left" height="19"> The absolute value 
+      of the difference between the length of the amplicon and the STS length of 
+      the primer pair, if the primers came from a UniSTS format file.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%a</td>
+      <td width="89%" valign="top" align="left" height="19"> The STS accession 
+      of the primer pair, if the primers came from a UniSTS format file. Otherwise,
+        &quot;&quot;.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%O</td>
+      <td width="89%" valign="top" align="left" height="19"> The STS organism of 
+      the primer pair, if the primers came from a UniSTS format file. Otherwise,
+        &quot;&quot;.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&amp;</td>
+      <td width="89%" valign="top" align="left" height="19"> The alternative STS 
+      accessions of the primer pair, if the primers came from a UniSTS format 
+      file. Otherwise,
+        &quot;&quot;.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%X</td>
+      <td width="89%" valign="top" align="left" height="19"> The STS chromosome 
+      of the primer pair, if the primers came from a UniSTS format file. Otherwise,
+        &quot;&quot;.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&gt;q</td>
+      <td width="89%" valign="top" align="left" height="19"> The &quot;left&quot; primer sequence of the alignment.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&lt;q</td>
+      <td width="89%" valign="top" align="left" height="19"> The &quot;right&quot; primer sequence of the alignment.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&gt;Q</td>
+      <td width="89%" valign="top" align="left" height="19">The &quot;left&quot; primer sequence of the alignment, with alignment characters to
+        indicate an insertion.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&lt;Q</td>
+      <td width="89%" valign="top" align="left" height="19">The &quot;right&quot; primer sequence of the alignment, with alignment characters to
+        indicate an insertion.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&gt;t</td>
+      <td width="89%" valign="top" align="left" height="19"> The &quot;left&quot; aligned sequence from the sequence database.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&lt;t</td>
+      <td width="89%" valign="top" align="left" height="19"> The &quot;right&quot; aligned sequence from the sequence database.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&gt;T</td>
+      <td width="89%" valign="top" align="left" height="19"> The &quot;left&quot; aligned sequence from the sequence database, with alignment
+        characters to indicate deletion.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&lt;T</td>
+      <td width="89%" valign="top" align="left" height="19"> The &quot;right&quot; aligned sequence from the sequence database, with alignment
+        characters to indicate deletion.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&gt;A</td>
+      <td width="89%" valign="top" align="left" height="19"> The string of alignment characters indicating exact match, insertion,
+        deletion and subsitution at each position of the &quot;left&quot; primer alignment.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&lt;A</td>
+      <td width="89%" valign="top" align="left" height="19"> The string of alignment characters indicating exact match, insertion,
+        deletion and subsitution at each position of the &quot;right&quot; primer alignment.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&gt;r</td>
+      <td width="89%" valign="top" align="left" height="19"> &quot;F&quot; if the forward form of the 
+      &quot;left&quot; primer was found, &quot;R&quot;
+if the reverse complement form of the &quot;left&quot; primer was found.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&lt;r</td>
+      <td width="89%" valign="top" align="left" height="19"> &quot;F&quot; if the forward form of the 
+      &quot;right&quot; primer was found, &quot;R&quot;
+if the reverse complement form of the &quot;left&quot; primer was found.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&gt;R</td>
+      <td width="89%" valign="top" align="left" height="19">
+<p> &quot; REVCOMP&quot; if the reverse complement form of the &quot;left&quot; primer was
+found, &quot;&quot; otherwise.</p>
+      </td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%&lt;R</td>
+      <td width="89%" valign="top" align="left" height="19">
+<p> &quot; REVCOMP&quot; if the reverse complement form of the &quot;right&quot; primer was
+found, &quot;&quot; otherwise.</p>
+      </td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%R</td>
+      <td width="89%" valign="top" align="left" height="19">
+<p> &quot; REVERSE-STRAND&quot; if the primer pair was found in reverse strand 
+orientation (second primer first), &quot;&quot; otherwise.</p>
+      </td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%@</td>
+      <td width="89%" valign="top" align="left" height="19"> The sequence of the 
+      amplicon amplified by the primer pair.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%N</td>
+      <td width="89%" valign="top" align="left" height="19"> The number of N's 
+      in the sequence of the amplicon &quot;amplified&quot; by the primer pair.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%0</td>
+      <td width="89%" valign="top" align="left" height="19"> e-PCR format 
+      output.</td>
+    </tr>
+    <tr>
+      <td width="12%" valign="top" align="left" height="19"></td>
+      <td width="8%" valign="top" align="left" height="19">%%</td>
+      <td width="89%" valign="top" align="left" height="19"> Percent (%).</td>
+    </tr>
+  </table>
+  </center>
+</div>
+<blockquote>
+<p>The default alignment format is &quot;&gt;%h\n %&gt;T %&gt;s ... %l ... %&lt;e %&lt;T\n %&gt;A %!&gt;s 
+%!l %!&lt;e %&lt;A\n %&gt;Q %&gt;r%!&gt;s %!l %!&lt;e%&lt;r %&lt;Q %a%R\n&quot;. The character '!' in 
+the format indicates that the number of characters occupied by the formated data 
+should output as spaces.</p>
+</blockquote>
+<h3>See Also</h3>
+<blockquote>
+<p><b><a href="primer_match.htm">primer_match</a>, <a href="compress_seq.htm">compress_seq</a></b></p>
+</blockquote>
+<h3>Author</h3>
+<blockquote>
+<p>Nathan Edwards</p>
+</blockquote>
+</html>

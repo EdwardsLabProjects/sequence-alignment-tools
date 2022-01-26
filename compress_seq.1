@@ -1,0 +1,110 @@
+.TH compress_seq 1
+.SH NAME
+
+compress_seq \- Pre-process a multi-Fasta sequence database 
+.SH SYNOPSIS
+
+.B compress_seq
+\-i
+.I fasta_sequence_database
+[ options ] 
+.SH DESCRIPTION
+
+.B compress_seq
+takes a multi-Fasta sequence database file and splits it into
+sequence, header and index files. It can output the sequence data in a
+variety of forms, depending of the commandline options given,
+including a DNA optimized normalized form, and a bit compressed form.
+It can also add an arbitrary end of sequence character to each
+sequence entry, and force each sequence character to uppercase. 
+
+In particular, if compress_seq is being used to prepare a multi-Fasta
+file for 
+.BR primer_match , 
+the 
+.I -n true
+option should be used; if for 
+.BR primer_match ,
+the 
+.I -z true 
+option should be used. Note that both the 
+.I -n true
+and
+.I -z true
+options can be used so that 
+.B compress_seq
+need only be run once, regardless which of
+.B primer_match 
+and
+.B primer_match_z
+is run.
+
+By default, 
+.B compress_seq
+splits the multi-Fasta sequence database file 
+.I db
+into three files:
+.IR db.seq ", " db.hdr " and " db.idx .
+
+In order to make 
+.B compress_seq 
+more suitable for use in computational analysis pipelines, it 
+only re-constructs the sequence database component
+files if the filesytem timestamps indicate that it is necessary. Note
+that the 
+.I -F
+option can be used to force each component to be re-made. 
+
+.SH OPTIONS
+.TP
+.BI \-i " fasta_sequence_database"
+Name of the multi-Fasta sequence database file to process. Required.
+.TP
+.BI \-n " ( true | false )"
+Create a normalized version of the sequence data. This creates
+additional files with suffixes
+.IR .sqn " and " .tbl .
+Default: false. 
+.TP
+.BI \-D " ( true | false )"
+Optimize the normalized sequence data for DNA sequence. Default: true. 
+.TP
+.BI \-z " ( true | false )"
+Create a bit compressed normalized version of the sequence data. This creates
+additional files with suffixes
+.IR .sqz " and " .tbz .
+Default: false. 
+.TP
+.BI \-u " ( true | false )"
+Force the sequence data to uppercase characters. Default: false.
+.TP
+.BI \-e " ( true | false )"
+Add an end of sequence character after each entry from the multi-Fasta
+sequence database file. This can help ensure that text matching
+algorithms cannot find a match that straddles two fasta entries.
+Default: true.
+.TP
+.BI \-E " eos"
+Use 
+.I eos
+as the end of sequence character. 
+.I eos
+is the ascii code for the desired character, it may be specifed as a
+decimal, octal or hexadecimal number. Default: 12 (newline).
+.TP
+.BI \-F " ( true | false )"
+Force each component of the compressed sequence database to be
+regenerated, even if the file timestamps indicate that this isn't
+necessary. Default: false. 
+.TP
+.B \-v
+Output the release tag of the binary. 
+.TP
+.B \-h
+Command-line help. 
+.SH "SEE ALSO"
+
+primer_match(1), primer_match_z(1)
+.SH "AUTHOR"
+
+Nathan Edwards, Nathan.Edwards@Celera.Com, EdwardNJ@AppliedBiosystems.Com

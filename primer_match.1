@@ -1,0 +1,438 @@
+.TH primer_match 1
+.SH NAME
+
+primer_match, primer_match_z \- Find or count primers in genomic sequence
+.SH SYNOPSIS
+
+.B primer_match 
+\-i 
+.I sequence_db
+( \-p 
+.I primers
+| \-P 
+.I primer_file
+)
+[ options ]
+
+.B primer_match_z
+\-i 
+.I sequence_db
+( \-p 
+.I primers
+| \-P 
+.I primer_file
+)
+[ options ]
+.SH DESCRIPTION
+
+.B primer_match
+and
+.B primer_match_z
+find exact or near exact instances of short DNA sequences, usually
+primers, in a (much) larger DNA sequence database such as the human
+genome. They output alignments of each primer as they are encountered
+in the sequence database or counts of the number of occurrences of each
+primer or both.
+
+By default 
+.B primer_match 
+and 
+.B primer_match_z
+output a human readable alignment for each occurrence of a primer in
+the sequence database, but the format of the output is completely
+configurable with the
+.B \-A
+and
+.B \-C
+options. 
+
+.B primer_match_z 
+uses a compressed version of the sequence database, in which each
+sequence character is represented in the minimum possible number of
+bits. It should be used when I/O is slow or when the memory
+footprint of 
+.B primer_match
+becomes prohibitive. 
+
+Before
+.B primer_match 
+and 
+.B primer_match_z
+can be run, the program 
+.B compress_seq 
+must be used to pre\-process the fasta sequence database. In particular, 
+.B primer_match
+requires the 
+.I \-n true 
+option be supplied to 
+.B compress_seq
+while 
+.B primer_match_z
+requires the 
+.I \-z true
+option be used. If both 
+.I \-n true 
+and
+.I \-z true  
+are supplied to 
+.B compress_seq 
+then either 
+.B primer_match
+or
+.B primer_match_z
+can be used.
+.SH OPTIONS
+.TP
+.BI \-i " fasta_sequence_database"
+Name of the sequence database to search. The sequence database must
+have been pre-processed by 
+.B compress_seq
+before 
+.B primer_match
+or 
+.B primer_match_z 
+is invoked. Required.
+.TP
+.BI \-p " primers"
+Whitespace (space, tab, newline) separated list of primer sequences to
+find in the sequence database. When this open is used on the command
+line, the primers will usually need to be placed in quotes ("). One of 
+.B -p
+and 
+.B -P 
+must be supplied.
+./"
+.TP
+.BI \-P " primer_file"
+File containing a whitespace (space, tab, newline) separated list of
+primer sequences to find in the sequence database. One of 
+.B -p
+and 
+.B -P 
+must be supplied.
+.TP
+.BI \-o " output_file"
+Output is redirected into the file 
+.IR output_file .
+If absent, output goes to standard out. 
+.TP
+.BI \-k " edit_distance"
+The maximum number of insertions, deletions, and substitutions
+permitted in any primer alignment. 
+.I edit_distance
+must be 0 or 1. If absent, edit distance 0 is assumed.
+Note that for primers of length < 20, all alignments 
+with >= 95% similarity must be exact matches (edit distance
+is 0), and for primers of length < 40, all alignments with >= 95%
+sequence similarity must have edit distance at most 1.
+.TP
+.B \-r
+Search for the reverse complements of the primers too. 
+.TP
+.BI \-s " l"
+Constrain the first 
+.I l
+sequence characters to match exactly; any insertions, deletions or
+substitutions must occur after position 
+.IR l .
+The reverse complement of a primer must also have its first 
+.I l
+characters match exactly. 
+.TP
+.BI \-e " l"
+Constrain the last
+.I l
+sequence characters to match exactly; any insertions, deletions or
+substitutions must occur before position 
+.IR l .
+The reverse complement of a primer must also have its last
+.I l
+characters match exactly. 
+.TP
+.BI \-5 " l"
+Constrain the 
+.I l
+sequence characters at the 5' end of a primer 
+to match exactly; any insertions, deletions or
+substitutions must occur after position 
+.I l 
+from the 5' end of the primer.
+The reverse complement of a primer must also have the
+.I l
+characters at its 5' end match exactly. 
+.TP
+.BI \-3 " l"
+Constrain the 
+.I l
+sequence characters at the 3' end of a primer 
+to match exactly; any insertions, deletions or
+substitutions must occur after position 
+.I l
+from the 3' end of the primer.
+The reverse complement of a primer must also have the
+.I l
+characters at its 3' end match exactly. 
+.TP
+.B \-u
+Force all primers to uppercase characters.
+.TP
+.BI \-E " eos"
+Consider the sequence character with ascii code
+.I eos
+to represent the end of the sequence in a fasta entry. This character
+can never be part of an alignment, except if explicitly included in
+a primer sequence. By default, 12 (newline) is considered the end of
+sequence character. The end of sequence character is inserted by 
+.BR compress_seq .
+.TP 
+.B \-c
+Output a count of the number of times each primer occurs in the
+sequence database, do not output any alignments. If absent, primer
+alignments are output.
+.TP
+.BI \-M " max"
+Stop counting primer occurrences once a primer has been seen
+.I max
+times.
+.TP
+.BI \-A " format"
+Output format for primer alignments. See Output Format below.
+If present, alignments will be output. 
+.TP
+.BI \-C " format"
+Output format for primer counts. See Output Format below. 
+If present, counts will be output. 
+.TP
+.BI \-R " report_interval"
+Usually, 
+.B primer_match
+accumulates many matches before taking the time to output alignments. This reduces the running time tremendously. However, if you are debugging or want reassurance that 
+.B primer_match
+is actually doing something, setting 
+.I report_interval
+to 1 will force 
+.I primer_match
+to report its alignments as they are found. 
+.TP
+.B \-v
+Output the release tag of the binary. 
+.TP
+.B \-h
+Command-line help. 
+.SH "OUTPUT FORMAT"
+
+The default alignment output format is
+.DS
+  >defline
+   sequence  start end edits
+   alignment
+   primer    index rc?
+.DE
+
+where 
+.I defline
+is the Fasta header line of the sequence entry containing the
+alignment;
+.I sequence
+is the aligned sequence from the sequence database;
+.I start
+and 
+.I end
+are the space based start and end positions of the aligned sequence
+in the sequence entry;
+.I edits
+is the number of insertions, deletions, and substitutions in the
+alignment;
+.I alignment
+is a series of alignment characters indicating match, insertion, deletion or
+substitution at each position of the alignment;
+.I primer
+is the aligned primer sequence;
+.I index
+is the index of this primer in the primer input set; and
+.I rc?
+is "REVCOMP" if the primer matched in its reverse complement form. 
+
+For example
+.DS
+>CCO_UID:219000002141424:BAC_UID:human_12212001_reproc:LEN:33337
+ AGATCGCAGGTACATAAATGCTTCT 20115 20140 0
+ |||||||||||||||||||||||||
+ AGATCGCAGGTACATAAATGCTTCT 3242
+>CCO_UID:219000002142926:BAC_UID:human_12212001_reproc:LEN:2262
+ CCCATTCAGTCTTTCTTTTAAAAACATTTATTTTTAATTCAT 1671 1713 0
+ ||||||||||||||||||||||||||||||||||||||||||
+ CCCATTCAGTCTTTCTTTTAAAAACATTTATTTTTAATTCAT 4781 REVCOMP
+.DE
+
+and
+.DS
+>gi|683734|gb|U20581.1|MFU20581 Macaca fascicularis endothelin 3 mRNA
+ CAGCCAGATCTGAG 44 58 1
+ |||*||||||||||
+ CAGTCAGATCTGAG 3
+>gi|9967394|dbj|AB047965.1| Macaca fascicularis brain cDNA
+ CTCAGATCTGA-TG 1569 1582 1
+ ||||||||||| ||
+ CTCAGATCTGACTG 3 REVCOMP
+.DE
+
+The default counts output format is
+.DS
+index rc? primer count ( 0-count 1-count ... )
+.DE
+
+where 
+.I index
+is the index of the primer;
+.I rc?
+is "R" for the reverse complement of primer 
+.I index
+and "F" otherwise;
+.I primer
+is the sequence of the primer if 
+.I rc?
+is "F" and the sequence of the primer's reverse complement if 
+.I rc?
+is "R";
+.I count 
+is the number of occurrences of 
+.I primer
+in the sequence database; and
+.I k-count
+is the number of occurrences of
+.I primer
+in the sequence database with
+.I k
+insertions, deletions, or substitutions. 
+
+For example
+.DS
+1 F TTACGGGCAGCTCA 9 ( 6 3 )
+1 R TGAGCTGCCCGTAA 0 ( 0 0 )
+2 F CCTTGCCAGTCAGATC 23 ( 8 15 )
+2 R GATCTGACTGGCAAGG 0 ( 0 0 )
+3 F CAGTCAGATCTGAG 15 ( 2 13 )
+3 R CTCAGATCTGACTG 6 ( 0 6 )
+.DE
+
+The command line options 
+.B \-A
+and 
+.B \-C 
+give the user explicit control over the output of alignments and
+counts respectively. Each format string contains conversion
+characters, which specify pieces of the alignment or count output. 
+
+Alignment format conversion characters:
+.TP
+.B %h
+Fasta header (defline) of the sequence entry containing the alignment
+.TP
+.B %H
+First "word" of the fasta header (defline) of the sequence entry
+containing the alignment. The first word is everything up to (but not
+including) the first whitespace character of the defline. 
+.TP
+.B %f
+Index of the fasta header (defline) of the sequence entry
+containing the alignment.  
+.TP
+.B %s
+Start position of the alignment in the sequence entry (space based)
+.TP
+.B %e
+End position of the alignment in the sequence entry (space based)
+.TP
+.B %5
+Position of the 5' end of the alignment in the sequence entry (space based)
+.TP
+.B %3
+Position of the 3' end of the alignment in the sequence entry (space based)
+.TP
+.B %S
+Start position of the alignment in the sequence database
+.TP
+.B %E
+End position of the alignment in the sequence database
+.TP
+.B %i
+Index of the aligned primer
+.TP
+.B %d 
+Edit distance (number of insertions, deletions, substitutions) of the
+alignment
+.TP
+.B %p
+The (forward) sequence of the primer, whether it was found in its
+forward or reverse complement form
+.TP
+.B %q
+The primer sequence of the alignment
+.TP
+.B %Q
+The primer sequence of the alignment, with alignment characters to
+indicate an insertion
+.TP
+.B %t
+The aligned sequence from the sequence database
+.TP
+.B %T
+The aligned sequence from the sequence database, with alignment
+characters to indicate deletion.
+.TP
+.B %A
+The string of alignment characters indicating exact match, insertion,
+deletion and subsitution at each position of the alignment
+.TP
+.B %r
+"F" if the forward form of the primer was found, "R" if the reverse
+complement form of the primer was found
+.TP
+.B %R
+" REVCOMP" if the reverse
+complement form of the primer was found, "" otherwise
+.TP
+.B %%
+Percent (%)
+.PP
+The default alignment format is ">%h\\n %T %s %e %d\\n %A\\n %Q %i%R\\n".
+
+Count format conversion characters:
+.TP
+.B %i
+The primer index
+.TP
+.B %p
+The (forward form of the) sequence of the primer
+.TP
+.B %q
+The forward or reverse complement form of the primer
+.TP
+.B %r
+"F" for the forward form of the primer, "R" for the reverse
+complement form of the primer
+.TP
+.B %R
+" REVCOMP" for the reverse
+complement form of the primer, "" otherwise
+.TP
+.B %c
+Count for primer or reverse complement
+.TP
+.B %C
+Space separated list of counts for edit distance 0, 1, etc.
+.TP
+.B %+
+Plus (+) if the count for this primer exceeded the maximum count threshold
+.TP
+.B %%
+Percent (%)
+.PP 
+The default count format is "%i %q %c%+ ( %C )\\n".
+.SH "SEE ALSO"
+
+compress_seq(1)
+.SH "AUTHOR"
+
+Nathan Edwards, Nathan.Edwards@Celera.Com, EdwardNJ@AppliedBiosystems.Com
