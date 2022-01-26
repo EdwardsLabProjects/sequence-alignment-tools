@@ -1,0 +1,135 @@
+/* Name: Default Georgetown University Stylesheet */
+/* Version: 3.1.0 */
+/* Authors: John Rogerson & Ignatius Hsu */
+/* Organization: KeyBridge http://keybridge.georgetown.edu */
+/* Email: jmr224 at georgetown dot edu */
+/* Date: Winter 2007 */
+/* -------------------------------------------- */
+
+/* Set Browser Defaults */
+/* -------------------------------------------- */
+
+/* Strip out margin and padding from elements that use them */
+ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, body, html, p, blockquote, fieldset, input
+{
+margin: 0;
+padding: 0;
+}
+
+/* Fragment? Remove.
+margin-left: auto !important;
+*/
+
+a img, :link img, :visited img { border: none; }
+/* Remove border from linked images */
+
+:link, :visited { text-decoration: none; }
+/* Remove underlines from links */
+
+ul, ol { list-style: none; }
+/* Remove bullets from links */
+
+/* Set Display Defaults */
+/* -------------------------------------------- */
+
+body
+{
+font-size: 62.5%;
+/* Use the font-size percentage to set 1em as close to 10px across platforms to be the base font size */
+margin-bottom: 10px;
+/* Best way to add small margin to bottom of page */
+text-align: center;
+/* Needed to horizontally center #container in IE5 */
+}
+
+#container
+{
+width: 780px;
+/* Current standard content width for KeySites */
+margin: 10px auto 0 auto;
+/* Center div horizontally and give top margin */
+text-align: left;
+/* Negates text-align: center used on body element */
+}
+
+#container:after
+{
+content: "";
+display: block;
+height: 0;
+clear: both;
+/* This "hack" enables standards compliant browsers to fully enclose all content contained within the #container div */
+}
+
+#footer { clear: both; }
+/* Forces footer to appear below floated content divs */
+
+/* Accommodate different layouts */
+/* -------------------------------------------- */
+
+/* col-SMX: All content layout */
+/* -------------------------------------------- */
+
+.col-SMX #content, .col-SMX #extracontent { float: right; }
+.col-SMX #maincontent, .col-SMX #vertnav { float: left; }
+/* Sets up 3 column layout, including all content areas with vertical navigation */
+
+/* col-SM: vertnav and maincontent only */
+/* -------------------------------------------- */
+
+.col-SM #content { float: right; }
+.col-SM #extracontent { display: none; }
+.col-SM #vertnav { float: left; }
+/* Sets up 2 column layout, including maincontent and vertical navigation */
+
+/* col-MX: maincontent and extracontent only */
+/* -------------------------------------------- */
+
+.col-MX #maincontent { float: left; }
+.col-MX #extracontent { float: right; }
+.col-MX #vertnav { display: none; }
+/* Sets up 2 column layout, including maincontent and extracontent */
+
+/* col-M: maincontent only */
+/* -------------------------------------------- */
+
+.col-M #maincontent { float: left; }
+.col-M #extracontent, .col-M #vertnav { display: none; }
+/* Sets up 1 column layout, including maincontent only */
+
+/* Accessibility options */
+/* -------------------------------------------- */
+
+#skipnav
+{
+position: absolute;
+left: -9999px;
+/* Allows those viewing outside graphical browsers to skip past navigational elements */
+}
+
+/* Global classes */
+/* -------------------------------------------- */
+
+.left { float: left; }
+.right { float: right; }
+
+/* HTML Editor Margin Adjustments */
+/* -------------------------------------------- */
+
+/* Addition to V3.1: div class editor provides 10px left/right margins
+Addition to Wireframe Page Skin V. 2.1, this div class added to #maincontent, #extracontent */
+
+/* Note: encapsulate content inserted by the html editor with div class tags.
+Either declare a div tag in the editor (Site Setup), or declare the div tag
+in individual page templates/skins */
+
+/* These styles compensates for tagless content inserted by the client.
+Without these styles, content that lack any HTML tags (i.e. paragraph, list or heading tags)
+will not have any margins. The editor adds <p></p> tags to most content,
+but sometimes omits inserting any tags */
+
+#maincontent .editor, #extracontent .editor
+{
+margin-left: 10px;
+margin-right: 10px;
+}
