@@ -494,7 +494,7 @@ verify: $(PROGS)
 		 mkdir tmp; \
 	fi
 	- rm -rf tmp/$*
-	mkdir tmp/$* tmp/$*/src tmp/$*/bin
+	mkdir tmp/$* tmp/$*/src tmp/$*/bin tmp/$*/docs
 	for f in `cat $*.files` ; do \
 		echo "Adding to $*: $$f" ; \
 		case "$$f" in \
@@ -502,6 +502,7 @@ verify: $(PROGS)
 			*.cc) cat $*.LICENSE.code $$f > tmp/$*/src/$$f;; \
 			*.h)  cat $*.LICENSE.code $$f > tmp/$*/src/$$f;; \
 			*.t)  cat $*.LICENSE.code $$f > tmp/$*/src/$$f;; \
+			*.html)  cat $*.LICENSE.code $$f > tmp/$*/$$f;; \
 			*)    cat $$f > tmp/$*/src/$$f;; \
 		esac; \
 	done

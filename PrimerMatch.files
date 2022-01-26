@@ -51,6 +51,6 @@ types.cc
 types.h
 util.cc
 util.h
-compress_seq.htm
-pcr_match.htm
-primer_match.htm
+docs/compress_seq.html
+docs/pcr_match.html
+docs/primer_match.html
