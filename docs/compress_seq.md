@@ -80,4 +80,4 @@ By default, compress_seq splits the multi-FASTA sequence database file db into t
 
 ## Author
 
-[Nathan Edwards](http://edwardslab.bcmb.georgetown.edu/)
+[Nathan Edwards](http://edwardslab.bmcb.georgetown.edu/)
