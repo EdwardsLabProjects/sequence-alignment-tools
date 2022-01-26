@@ -20,59 +20,59 @@ By default, compress_seq splits the multi-FASTA sequence database file db into t
 
 -i fasta_sequence_database
 
-Name of the multi-Fasta sequence database file to process. Required.
+> Name of the multi-Fasta sequence database file to process. Required.
 
 -I ( true \| false )
 
-Write fasta index file in binary format. Default: true.
+> Write fasta index file in binary format. Default: true.
 
 -n ( true \| false )
 
-Create a normalized version of the sequence data. This creates additional files with suffixes .sqn and .tbl. Default: false.
+> Create a normalized version of the sequence data. This creates additional files with suffixes .sqn and .tbl. Default: false.
 
 -D ( true \| false )
 
-Optimize the normalized sequence data for DNA sequence. Default: true.
+> Optimize the normalized sequence data for DNA sequence. Default: true.
 
 -z ( true \| false )
 
-Create a bit compressed normalized version of the sequence data. This creates additional files with suffixes .sqz and .tbz. Default: false.
+> Create a bit compressed normalized version of the sequence data. This creates additional files with suffixes .sqz and .tbz. Default: false.
 
 -u ( true \| false )
 
-Force the sequence data to uppercase characters. Default: false.
+> Force the sequence data to uppercase characters. Default: false.
 
 -e ( true \| false )
 
-Add an end of sequence character after each entry from the multi-FASTA sequence database file. This can help ensure that text matching algorithms cannot find a match that straddles two FASTA entries. Default: true.
+> Add an end of sequence character after each entry from the multi-FASTA sequence database file. This can help ensure that text matching algorithms cannot find a match that straddles two FASTA entries. Default: true.
 
 -E eos
 
-Use eos as the end of sequence character. eos is the ascii code for the desired character, it may be specified as a decimal, octal or hexadecimal number. Default: 12 (newline).
+> Use eos as the end of sequence character. eos is the ascii code for the desired character, it may be specified as a decimal, octal or hexadecimal number. Default: 12 (newline).
 
 -S ( true \| false )
 
-Insert end of sequence character before initial sequence entry. Default: false.
+> Insert end of sequence character before initial sequence entry. Default: false.
 
 -F ( true \| false )
 
-Force each component of the compressed sequence database to be regenerated, even if the file timestamps indicate that this isn't necessary. Default: false.
+> Force each component of the compressed sequence database to be regenerated, even if the file timestamps indicate that this isn't necessary. Default: false.
 
 -C ( true \| false )
 
-Cleanup unnecessary temporary files. Default: true.
+> Cleanup unnecessary temporary files. Default: true.
 
 -B
 
-Use buffered standard I/O rather than mmap to stream through the sequence database. On some platforms, where the use of mmap is somewhat unpredictable, this option may make it possible to run compress_seq reliably. 
+> Use buffered standard I/O rather than mmap to stream through the sequence database. On some platforms, where the use of mmap is somewhat unpredictable, this option may make it possible to run compress_seq reliably. 
 
 -v 
 
-Output the release version of the binary.
+> Output the release version of the binary.
 
 -h 
 
-Command-line help.
+> Command-line help.
 
 ## See Also
 
