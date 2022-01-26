@@ -1,11 +1,167 @@
---2022-01-25 20:29:30--  https://edwardslab.bmcb.georgetown.edu/software/PrimerMatch.html
-Resolving edwardslab.bmcb.georgetown.edu (edwardslab.bmcb.georgetown.edu)... 141.161.14.163
-Connecting to edwardslab.bmcb.georgetown.edu (edwardslab.bmcb.georgetown.edu)|141.161.14.163|:443... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: unspecified [text/html]
-Saving to: ‘PrimerMatch.html’
+                                               
 
-     0K .....                                                  7.01M=0.001s
 
-2022-01-25 20:29:30 (7.01 MB/s) - ‘PrimerMatch.html’ saved [5506]
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+  <title>
+    Edwards Lab - Georgetown University Medical Center
+  </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/style_v3.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/explore_v1.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/layout.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/site_specific.css" />
+  <script src="/js/hover.js" type="text/javascript"></script>
+  </head>
+  <body id="ksObject49071" class="ksCollection1296 col-SM ksPageTemplate2424 ksSection7308 ksSite298">
+    <div id="container">
+      <div id="header">
+        <h2>
+        <a href="/">
+	  Edwards Lab
+        </a>	
+	</h2>
+      </div>
+      <div id="horznav">
+      </div>
+      <div id="sitebody">
+      <div id="content">
+        <div id="maincontent">
+        <div class="editor">
+
+
+<P style="float: right;">
+<A href="/">Home</A> 
+&raquo; <A href="/software">Software</A>
+&raquo; <A href="/software/PrimerMatch.html">PrimerMatch</A>
+
+</P>
+
+<h3>PrimerMatch</h3>
+
+<h4>Introduction</h4>
+<P>
+The Primer Match suite of tools is designed to find and count exact
+and near exact matches of short oligonucleotide sequences in large
+genomic databases. All matches to the oligos will be output, the tools
+guarantee a complete enumeration of all matches consistent with the
+search options. Substitutions, insertions and deletions can be
+prohibited in the start, end, 5' or 3' bases of oligos.  Many options
+for constraining acceptable alignments and input/output formats are
+provided. The tools automatically optimize the sequence search
+strategies to match the search parameters.
+<P>
+<h4>Installation</h4>
+<P>
+<ol>
+<li> Pull down the source from the central CVS repository at
+<a href="http://bioinformatics.org">bioinformatics.org</a>
+<pre class="code">
+    cvs -d:pserver:anonymous@bioinformatics.org:/cvsroot login
+    cvs -d:pserver:anonymous@bioinformatics.org:/cvsroot checkout PrimerMatch
+</pre>
+<P>
+<li> Type make!<P> There are a number of OS's, architectures and
+compilers supported out of the box, namely OSF (Alpha/Compaq) with cxx
+and g++, AIX (IBM) with xlC, Cygwin/MinGW (WinTel) with g++, and Linux
+with g++. If your environment is not shown, don't despair, between the
+Makefile variables and the defines in types.h it should be possible to
+compile primer_match in your environment.
+</ol>
+<P>
+<h4>Programs</h4>
+<P>
+<dl>
+<dt><b><a href="primer_match.html">primer_match</a></b></dt>
+<dd>
+<a href="primer_match.html">primer_match</a> finds and counts exact and
+near exact instances of short DNA sequences, usually primers, in a
+(much) larger DNA sequence database such as the human genome.
+</dd>
+<P>
+<dt><b><a href="pcr_match.html">pcr_match</a></b></dt>
+<dd>
+<a href="pcr_match.html">pcr_match</a> finds pairs of short DNA
+sequences, usually primers, in a (much) larger DNA sequence database
+such as the human genome.
+</dd>
+<P>
+<dt><b><a href="compress_seq.html">compress_seq</a></b></dt>
+<dd>
+<a href="compress_seq.html">compress_seq</a> reformats multi-FASTA
+sequence databases for efficient searching by <a
+href="primer_match.html">primer_match</a> and
+<a href="pcr_match.html">pcr_match</a>.
+</dd>
+</dl>
+<P>
+<h4>Examples</h4>
+<P>
+<ol>
+<ul>
+<li>Determine the set of PCR primers that occur exactly once in the human genome
+<P>
+<ol>
+<li>Normalize the genome sequence database using <b>compress_seq</b>
+<pre class="code">
+    > compress_seq -i genome.fasta -n true 
+</pre>
+<li>Count primer occurrences in the genome that match with at most one
+string edit, but in which the 5' most 7 bases must match exactly
+<pre class="code">
+    > primer_match -i genome.fasta -P primers.txt -r -k 1 -5 7 -c -a 
+</pre>
+</ol>
+<P>
+<li>Find all occurrences of PCR primer pairs matching exactly, oriented towards
+each other, with maximum amplicon length 1000, and extract the amplicons in fasta format.
+<pre class="code">
+    > compress_seq -i genome.fasta -n true
+    > pcr_match -i genome.fasta -P primers.txt -M 1000 -A ">%i /len=%l /Ns=%N /edits=(%>e,%&lt;e)\n%@\n"
+</pre>
+</ul>
+
+          <!--guExplorePageTemplateFooter-->
+        </div>
+        </div>
+      </div>
+      <div id="vertnav">
+	<div class=" ksChannel ksNavChannel">
+	<ul>
+
+	<li class="ksNavSubSection ksNavLevel1">
+  
+<a href="/publications" title="Publications">Publications</a> 
+
+	</li>
+
+	<li class="ksNavSubSection ksNavLevel1">
+  
+<a href="/teaching" title="Teaching">Teaching</a> 
+
+	</li>
+</ul> 
+</div>
+
+      </div>
+      </div>
+      <div id="footer">
+        <div id="footerwrap">
+        
+        <p class="contact">
+          <a href="http://edwardslab.bmcb.georgetown.edu/~nedwards">Dr. Nathan Edwards</a><br />
+	  <a href="http://bmcb.georgetown.edu">Department of Biochemistry and Molecular &amp; Cellular Biology</a><br/>
+	  <a href="http://gumc.georgetown.edu">Georgetown University Medical Center</a>
+        </p>
+        <p class="footlogo" onclick="location.href='http://www.georgetown.edu/';" style="cursor: pointer;">
+          Georgetown University
+        </p>
+        </div>
+      </div>
+
+    </div>
+		</body>
+  </html>
+  <!--/guExplorePageTemplateFooter-->
 
