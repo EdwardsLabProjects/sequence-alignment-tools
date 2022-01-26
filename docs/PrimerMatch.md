@@ -4,7 +4,7 @@ The Primer Match suite of tools is designed to find and count exact and near exa
 
 ## Installation
 
-See the binary releases in this repository. 
+See the binary [releases](https://github.com/EdwardsLabProjects/sequence-alignment-tools) in this repository. 
     
 ## Programs
 
