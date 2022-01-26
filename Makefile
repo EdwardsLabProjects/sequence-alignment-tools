@@ -494,21 +494,22 @@ verify: $(PROGS)
 		 mkdir tmp; \
 	fi
 	- rm -rf tmp/$*
-	mkdir tmp/$*
+	mkdir tmp/$* tmp/$*/src tmp/$*/bin
 	for f in `cat $*.files` ; do \
 		echo "Adding to $*: $$f" ; \
 		case "$$f" in \
-			*.c)  cat $*.LICENSE.code $$f > tmp/$*/$$f;; \
-			*.cc) cat $*.LICENSE.code $$f > tmp/$*/$$f;; \
-			*.h)  cat $*.LICENSE.code $$f > tmp/$*/$$f;; \
-			*.t)  cat $*.LICENSE.code $$f > tmp/$*/$$f;; \
-			*)    cat $$f > tmp/$*/$$f;; \
+			*.c)  cat $*.LICENSE.code $$f > tmp/$*/src/$$f;; \
+			*.cc) cat $*.LICENSE.code $$f > tmp/$*/src/$$f;; \
+			*.h)  cat $*.LICENSE.code $$f > tmp/$*/src/$$f;; \
+			*.t)  cat $*.LICENSE.code $$f > tmp/$*/src/$$f;; \
+			*)    cat $$f > tmp/$*/src/$$f;; \
 		esac; \
 	done
 	@ echo "Adding to $*: $*.Makefile"
-	cp -f $*.Makefile tmp/$*/Makefile
+	cp -f $*.Makefile tmp/$*/src/Makefile
 	@ echo "Adding to $*: $*.LICENSE.txt"
-	cp -f $*.LICENSE.txt tmp/$*/LICENSE.txt
+	cp -f $*.LICENSE.txt tmp/$*/src/LICENSE.txt
+	( cd tmp/$*/src; make ; mv -f $(PLATFORM)/* ../bin; make realclean; rm -rf $(PLATFORM) )
 	tar -cvf - -C tmp $* | gzip -9 -c > $*.tar.gz
 
 include Makefile.d
